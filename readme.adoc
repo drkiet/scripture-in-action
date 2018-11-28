@@ -3,10 +3,11 @@ The goal of this project is to create a set of tools
 for the scripture students.
 
 == Project status
-- Wednesday 28 November 2018: Project stated.
+	- Wednesday 28 November 2018: Project stated.
 
 === Resources online
 Important web sites:
-- New American Bible (NAB): `http://www.vatican.va/archive/ENG0839/_INDEX.HTM`
-- Revised Standard Version (RSV): `https://quod.lib.umich.edu/r/rsv/browse.html`
+
+	- New American Bible (NAB): `http://www.vatican.va/archive/ENG0839/_INDEX.HTM`
+	- Revised Standard Version (RSV): `https://quod.lib.umich.edu/r/rsv/browse.html`
  
