@@ -5,6 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.junit.Test;
@@ -188,6 +189,38 @@ public class CollectingBookInfo {
 				"public static final String[] NAMES_OF_CATHOLIC_LETTER_BOOKS = {");
 		assertThat(BibleConstants.NAMES_OF_CATHOLIC_LETTER_BOOKS.length,
 				equalTo(BibleConstants.NUMBER_OF_CATHOLIC_LETTER_BOOKS));
+	}
+
+	@Test
+	public void should_get_number_of_chapters_by_books() {
+		collector.visits_usccb_web_site(USCCB_BIBLE_URL);
+		Hashtable<String, Integer> numberOfChaptersByBookNameTable = new Hashtable<String, Integer>();
+
+		for (String bookName : BibleConstants.NAMES_OF_ALL_BOOKS) {
+			numberOfChaptersByBookNameTable.put(bookName, 0);
+		}
+		collector.get_number_of_chapters_by(numberOfChaptersByBookNameTable);
+		numberOfChaptersByBookNameTable.keySet().stream().forEach(bookName -> {
+			logger.info("{} has {} chapters", bookName, numberOfChaptersByBookNameTable.get(bookName));
+		});
+
+		StringBuilder sb = new StringBuilder();
+		int numberOfAllChaptersForAllBooks = 0;
+
+		for (String bookName : BibleConstants.NAMES_OF_ALL_BOOKS) {
+			sb.append(String.format("public final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_%s = %d;",
+					underscoreUppercase(bookName), numberOfChaptersByBookNameTable.get(bookName))).append('\n');
+			numberOfAllChaptersForAllBooks += numberOfChaptersByBookNameTable.get(bookName);
+		}
+
+		sb.append("public final Integer NUMBER_OF_ALL_CHAPTERS_FOR_ALL_BOOKS = ").append(numberOfAllChaptersForAllBooks)
+				.append(";\n");
+		logger.info("generated code:\n{}", sb);
+
+	}
+
+	private Object underscoreUppercase(String bookName) {
+		return bookName.toUpperCase().trim().replaceAll(" ", "_");
 	}
 
 	private void makeArrayOfAllBookNames(List<String> bookNames, String constantName) {

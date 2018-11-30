@@ -1,6 +1,7 @@
 package com.drkiettran.scriptureinaction.catalog.steps;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -62,6 +63,18 @@ public class BooksOfTheBiblePage extends PageObject {
 			bookNamesByCollections.add(bookNameSpan.getText());
 		}
 		return bookNamesByCollections;
+	}
+
+	public void getNumberOfChaptersByBookName(Hashtable<String, Integer> numberOfChaptersByBookNames) {
+		for (String bookName : numberOfChaptersByBookNames.keySet()) {
+			logger.info("getting number of chapters for book {}", bookName);
+			String xpath = String.format("//a[contains(@href,'%s')]", compressLowercase(bookName));
+			numberOfChaptersByBookNames.put(bookName, getDriver().findElements(By.xpath(xpath)).size());
+		}
+	}
+
+	private Object compressLowercase(String bookName) {
+		return bookName.toLowerCase().trim().replaceAll(" ", "");
 	}
 
 }
