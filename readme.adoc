@@ -3,11 +3,21 @@ The goal of this project is to create a set of tools
 for the scripture students.
 
 == Project status
-	- Wednesday 28 November 2018: Project stated.
+	- Wednesday 28 November 2018: Project stated. 
+	I want to catalog the bible (old vs new books, chapters, verses).
+	For example, how many books in the bible?
+	How many Old Testament (OT) books?
+	How many New Testament (NT) books?
+	How many chapters are there in the book of Matthew?
+	How many verses in chapter 1 of the book of Matthew?
 
-=== Resources online
+== Resources online
 Important web sites:
 
-	- New American Bible (NAB): `http://www.vatican.va/archive/ENG0839/_INDEX.HTM`
+	
+	- New American Bible (NAB): `http://www.vatican.va/archive/ENG0839/_INDEX.HTM` or
+								`http://www.usccb.org/bible/books-of-the-bible/index.cfm`
 	- Revised Standard Version (RSV): `https://quod.lib.umich.edu/r/rsv/browse.html`
+	- Douay-Rheims (DR) & Latin Vulgate (LV): `http://www.drbo.org/`
+	- Abbreviations: `http://catholic-resources.org/Bible/Abbreviations-Abreviaciones.htm`
  
