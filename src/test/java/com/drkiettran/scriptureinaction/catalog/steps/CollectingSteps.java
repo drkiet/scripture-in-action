@@ -1,10 +1,14 @@
 package com.drkiettran.scriptureinaction.catalog.steps;
 
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.drkiettran.scriptureinaction.model.UniqueId;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -41,8 +45,26 @@ public class CollectingSteps extends ScenarioSteps {
 	}
 
 	@Step("A scripture collector get number of chapters by {0}")
-	public void get_number_of_chapters_by(Hashtable<String, Integer> numberOfChaptersByBookNames) {
-		logger.info("# of books {}\n {}", numberOfChaptersByBookNames.size(), numberOfChaptersByBookNames);
-		booksOfTheBiblePage.getNumberOfChaptersByBookName(numberOfChaptersByBookNames);
+	public int[] get_number_of_chapters_by_book_name(String[] namesOfAllBooks) {
+		logger.info("# of books {}\n {}", namesOfAllBooks.length, namesOfAllBooks);
+		return booksOfTheBiblePage.getNumberOfChaptersByBookName(namesOfAllBooks);
+	}
+
+	@Step
+	public List<Integer[]> get_number_of_verses_by_chapter_by_book_name(String usccBibleContentUrl, String[] bookNames,
+			int[] numberOfChaptersByBookName) {
+		return booksOfTheBiblePage.getNumberOfVersesByChapterByBookName(usccBibleContentUrl, bookNames,
+				numberOfChaptersByBookName);
+	}
+
+	@Step
+	public UniqueId make_unique_id_(String bookName, int chapterNo, int verseNo) {
+		UniqueId id = new UniqueId();
+		id.setBookName(bookName);
+		id.setChapterNo(chapterNo);
+		id.setVerseNo(verseNo);
+		id.setPubDate(new Date());
+		id.setId(UUID.randomUUID().toString());
+		return id;
 	}
 }

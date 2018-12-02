@@ -1,6 +1,7 @@
 package com.drkiettran.scriptureinaction.catalog.steps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -65,16 +66,75 @@ public class BooksOfTheBiblePage extends PageObject {
 		return bookNamesByCollections;
 	}
 
-	public void getNumberOfChaptersByBookName(Hashtable<String, Integer> numberOfChaptersByBookNames) {
-		for (String bookName : numberOfChaptersByBookNames.keySet()) {
+	public int[] getNumberOfChaptersByBookName(String[] namesOfAllBooks) {
+		int[] numberOfChaptersByBookName = new int[namesOfAllBooks.length];
+
+		for (int i = 0; i < namesOfAllBooks.length; i++) {
+			String bookName = namesOfAllBooks[i];
 			logger.info("getting number of chapters for book {}", bookName);
+			if ("1 Maccabees".equalsIgnoreCase(bookName)) {
+				bookName = "1mc";
+			} else if ("2 Maccabees".equalsIgnoreCase(bookName)) {
+				bookName = "2mc";
+			}
 			String xpath = String.format("//a[contains(@href,'%s')]", compressLowercase(bookName));
-			numberOfChaptersByBookNames.put(bookName, getDriver().findElements(By.xpath(xpath)).size());
+
+			numberOfChaptersByBookName[i] = getDriver().findElements(By.xpath(xpath)).size();
+		}
+		return numberOfChaptersByBookName;
+	}
+
+	public void getNumberOfVersesByChapterByBookName(String usccBibleContentUrl,
+			Hashtable<String, List<Integer>> numberOfVersesByChapterByBookNameTable) {
+		String xpath = "//span[@class='bcv']";
+
+		for (String bookName : numberOfVersesByChapterByBookNameTable.keySet()) {
+			List<Integer> numberOfVersesByChapterList = numberOfVersesByChapterByBookNameTable.get(bookName);
+			for (int chapIdx = 0; chapIdx < numberOfVersesByChapterList.size(); chapIdx++) {
+				logger.info("getting number of verses for chapter {} for book {}", chapIdx + 1, bookName);
+				String url = String.format("%s/%s/%d", usccBibleContentUrl, compressLowercase(bookName), chapIdx + 1);
+
+				getDriver().get(url);
+				numberOfVersesByChapterList.set(chapIdx, getDriver().findElements(By.xpath(xpath)).size());
+			}
 		}
 	}
 
 	private Object compressLowercase(String bookName) {
 		return bookName.toLowerCase().trim().replaceAll(" ", "");
+	}
+
+	public List<Integer[]> getNumberOfVersesByChapterByBookName(String usccBibleContentUrl, String[] bookNames,
+			int[] numChaps) {
+		List<Integer[]> versesArray = new ArrayList<Integer[]>();
+
+		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
+			Integer[] versesPerChapter = new Integer[numChaps[bookIdx]];
+			for (int chapIdx = 0; chapIdx < numChaps[bookIdx]; chapIdx++) {
+				String url = String.format("%s/%s/%d", usccBibleContentUrl, compressLowercase(bookNames[bookIdx]),
+						chapIdx + 1);
+
+				getDriver().get(url);
+				versesPerChapter[chapIdx] = getDriver().findElements(By.xpath("//span[@class='bcv']")).size();
+				logger.info("Book {} chapter {} has {} verses", bookNames[bookIdx], chapIdx + 1,
+						versesPerChapter[chapIdx]);
+
+				if (versesPerChapter[chapIdx] == 0) {
+					logger.error("**** ERROR ****");
+				}
+			}
+			sleepToAvoidOverLoadServer(5);
+			versesArray.add(versesPerChapter);
+		}
+		return versesArray;
+	}
+
+	private void sleepToAvoidOverLoadServer(int secs) {
+		try {
+			Thread.sleep(secs * 1000L);
+		} catch (InterruptedException e) {
+			// do nothing
+		}
 	}
 
 }
