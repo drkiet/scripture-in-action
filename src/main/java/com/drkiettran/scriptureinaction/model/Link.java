@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * <code>
  * 
+ *  usccb: en
+ *  
  * 2 King chapter 1
  * 
  * a. [1:1] 2 Kgs 3:4–27.
@@ -24,8 +26,8 @@ public class Link {
 	@JsonProperty("link_id")
 	private String linkId;
 
-	@JsonProperty("to_link_ids")
-	private List<String> toLinkIds;
+	@JsonProperty("to_verse_ids")
+	private List<String> toVerseIds;
 
 	@JsonProperty("verse_id")
 	private String verseId;

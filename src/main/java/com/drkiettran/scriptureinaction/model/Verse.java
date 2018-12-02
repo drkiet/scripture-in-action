@@ -26,7 +26,7 @@ public class Verse {
 	@JsonProperty("related_verse_ids")
 	private List<String> relatedVerseIds;
 
-	@JsonProperty("commentary")
-	private List<Commentary> commentaries;
+	@JsonProperty("commentary_ids")
+	private List<String> commentaryIds;
 
 }

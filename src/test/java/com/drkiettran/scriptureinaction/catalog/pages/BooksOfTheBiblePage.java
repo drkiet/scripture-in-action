@@ -1,4 +1,4 @@
-package com.drkiettran.scriptureinaction.catalog.steps;
+package com.drkiettran.scriptureinaction.catalog.pages;
 
 import java.util.ArrayList;
 import java.util.Arrays;

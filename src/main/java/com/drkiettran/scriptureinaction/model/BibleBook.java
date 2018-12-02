@@ -29,6 +29,6 @@ public class BibleBook {
 	@JsonProperty("additional_information")
 	private String additionalInformation;
 
-	@JsonProperty("chapters")
-	private List<Chapter> chapters;
+	@JsonProperty("chapter_ids")
+	private List<String> chapterIds;
 }

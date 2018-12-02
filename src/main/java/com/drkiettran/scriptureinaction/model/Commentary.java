@@ -5,7 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+/**
+ * usccb: fn
+ * @author ktran
+ *
+ */
 public class Commentary {
 	@JsonProperty("commentary_id")
 	private String commentaryId;

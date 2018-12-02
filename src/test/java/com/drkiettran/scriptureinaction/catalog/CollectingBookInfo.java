@@ -4,9 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -32,6 +30,7 @@ public class CollectingBookInfo {
 	private static final Logger logger = LoggerFactory.getLogger(CollectingBookInfo.class);
 	private static final String USCCB_BIBLE_URL = "http://www.usccb.org/bible/books-of-the-bible/index.cfm";
 	private static final String USCC_BIBLE_CONTENT_URL = "http://www.usccb.org/bible";
+	private static final String CATHOLIC_RESOURCES_ABBREVIATIONS_URL = "http://catholic-resources.org/Bible/Abbreviations-Abreviaciones.htm";
 
 	@Managed(driver = "chrome")
 	WebDriver driver;
@@ -113,6 +112,28 @@ public class CollectingBookInfo {
 				.append(numberOfAllVersesForAllBooks).append(";\n");
 
 		logger.info("generated code:\n{}", sb);
+	}
+
+	@Test
+	public void should_get_abbreviations_for_all_book_names() {
+		List<String> abbreviations = collector.get_abbreviations_names(CATHOLIC_RESOURCES_ABBREVIATIONS_URL,
+				BibleConstants.NAMES_OF_ALL_BOOKS);
+		assertThat(abbreviations.size(), equalTo(BibleConstants.NUMBER_OF_ALL_BOOKS));
+
+		StringBuilder sb = new StringBuilder("private static final String[] ABBREVIATIONS_OF_ALL_BOOKS = {\n");
+
+		for (int bookIdx = 0; bookIdx < BibleConstants.NUMBER_OF_ALL_BOOKS; bookIdx++) {
+			String abbrev = abbreviations.get(bookIdx);
+			String bookName = BibleConstants.NAMES_OF_ALL_BOOKS[bookIdx];
+
+			abbrev = abbrev.replaceAll(" or", ",");
+			sb.append("/** ").append(bookName).append(" **/ ").append('"').append(abbrev).append('"').append(",\n");
+		}
+
+		sb.deleteCharAt(sb.length() - 2);
+		sb.append("};");
+		logger.info("generated code:\n{}", sb);
+
 	}
 
 	// **** Non SERENITY use tests ****

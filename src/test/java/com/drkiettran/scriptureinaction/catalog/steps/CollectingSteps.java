@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.drkiettran.scriptureinaction.catalog.pages.AbbrevPage;
+import com.drkiettran.scriptureinaction.catalog.pages.BooksOfTheBiblePage;
 import com.drkiettran.scriptureinaction.model.UniqueId;
 
 import net.thucydides.core.annotations.Step;
@@ -18,6 +20,8 @@ public class CollectingSteps extends ScenarioSteps {
 
 	private static final long serialVersionUID = 6562660228054550177L;
 	private BooksOfTheBiblePage booksOfTheBiblePage;
+
+	private AbbrevPage abbrevPage;
 
 	@Step("A scripture collector gathers the names of the books")
 	public List<String> gathers_the_names_of_the_books() {
@@ -66,5 +70,10 @@ public class CollectingSteps extends ScenarioSteps {
 		id.setPubDate(new Date());
 		id.setId(UUID.randomUUID().toString());
 		return id;
+	}
+
+	@Step("A collector gets the abbreviation names (other names) of books")
+	public List<String> get_abbreviations_names(String catholicResourcesAbbreviationsUrl, String[] namesOfAllBooks) {
+		return abbrevPage.getAbbreviationsInEnglish(catholicResourcesAbbreviationsUrl, namesOfAllBooks);
 	}
 }

@@ -17,6 +17,6 @@ public class Chapter {
 	@JsonProperty("book_id")
 	private String bookId;
 
-	@JsonProperty("verses")
-	private List<Verse> verses;
+	@JsonProperty("verse_ids")
+	private List<String> verseIds;
 }

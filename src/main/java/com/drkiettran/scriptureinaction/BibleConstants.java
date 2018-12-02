@@ -76,6 +76,154 @@ public class BibleConstants {
 	public static final int NUMBER_OF_LETTER_BOOKS = 14;
 	public static final int NUMBER_OF_CATHOLIC_LETTER_BOOKS = 8;
 
+	private static final String[] ABBREVIATIONS_OF_ALL_BOOKS = {
+			/** Genesis **/
+			"Gen,  Ge, Gn",
+			/** Exodus **/
+			"Exod,  Ex",
+			/** Leviticus **/
+			"Lev,  Lv, Le",
+			/** Numbers **/
+			"Num,  Nm, Nu",
+			/** Deuteronomy **/
+			"Deut,  Dt, De, Du",
+			/** Joshua **/
+			"Josh,  Jos, Jo",
+			/** Judges **/
+			"Judg,  Jdg, Jgs",
+			/** Ruth **/
+			"Ruth,  Ru",
+			/** 1 Samuel **/
+			"1 Sam,  1Sm, 1Sa",
+			/** 2 Samuel **/
+			"2 Sam,  2Sm, 2Sa",
+			/** 1 Kings **/
+			"1 Kgs,  1Kg, 1Ki",
+			/** 2 Kings **/
+			"2 Kgs,  2Kg, 2Ki",
+			/** 1 Chronicles **/
+			"1 Chr,  1 Chron, 1Ch",
+			/** 2 Chronicles **/
+			"2 Chr,  2 Chron, 2Ch",
+			/** Ezra **/
+			"Ezra,  Ezr",
+			/** Nehemiah **/
+			"Neh,  Ne",
+			/** Tobit **/
+			"Tob,  Tb",
+			/** Judith **/
+			"Jdt,  Jth",
+			/** Esther **/
+			"Esth,  Est, Es",
+			/** 1 Maccabees **/
+			"1 Macc,  1Mc, 1Ma",
+			/** 2 Maccabees **/
+			"2 Macc,  2Mc, 2Ma",
+			/** Job **/
+			"Job,  Jb",
+			/** Psalms **/
+			"Ps (pl. Pss)",
+			/** Proverbs **/
+			"Prov,  Prv, Pr",
+			/** Ecclesiastes **/
+			"Eccl,  Eccles, Ec, Qoh",
+			/** Song of Songs **/
+			"Song,  SS, So, Sg, Cant, Can",
+			/** Wisdom **/
+			"Wis,  Ws",
+			/** Sirach **/
+			"Sir, Ecclus",
+			/** Isaiah **/
+			"Isa,  Is",
+			/** Jeremiah **/
+			"Jer,  Je",
+			/** Lamentations **/
+			"Lam,  La",
+			/** Baruch **/
+			"Bar,  Ba",
+			/** Ezekiel **/
+			"Ezek,  Ezk, Ez",
+			/** Daniel **/
+			"Dan,  Dn, Da",
+			/** Hosea **/
+			"Hos,  Ho",
+			/** Joel **/
+			"Joel,  Joe, Jl",
+			/** Amos **/
+			"Amos,  Am",
+			/** Obadiah **/
+			"Obad,  Ob",
+			/** Jonah **/
+			"Jonah,  Jon",
+			/** Micah **/
+			"Mic,  Mi",
+			/** Nahum **/
+			"Nah,  Na",
+			/** Habakkuk **/
+			"Hab,  Hb",
+			/** Zephaniah **/
+			"Zeph,  Zep",
+			/** Haggai **/
+			"Hag,  Hg",
+			/** Zechariah **/
+			"Zech,  Zec",
+			/** Malachi **/
+			"Mal,  Ml",
+			/** Matthew **/
+			"Matt,  Mat, Mt",
+			/** Mark **/
+			"Mark,  Mar, Mk",
+			/** Luke **/
+			"Luke,  Lk, Lu",
+			/** John **/
+			"John,  Jn, Jo",
+			/** Acts **/
+			"Acts,  Ac",
+			/** Romans **/
+			"Rom,  Rm, Ro",
+			/** 1 Corinthians **/
+			"1 Cor,  1 Co, 1C",
+			/** 2 Corinthians **/
+			"2 Cor,  2 Co, 2C",
+			/** Galatians **/
+			"Gal,  Ga",
+			/** Ephesians **/
+			"Eph,  Ep",
+			/** Philippians **/
+			"Phil,  Php",
+			/** Colossians **/
+			"Col,  Co",
+			/** 1 Thessalonians **/
+			"1 Thess,  1 Thes, 1Th",
+			/** 2 Thessalonians **/
+			"2 Thess,  2 Thes, 2Th",
+			/** 1 Timothy **/
+			"1 Tim,  1 Tm, 1 Ti, 1T",
+			/** 2 Timothy **/
+			"2 Tim,  2 Tm, 2 Ti, 2T",
+			/** Titus **/
+			"Titus,  Tit, Ti",
+			/** Philemon **/
+			"Phlm,  Philem, Phm",
+			/** Hebrews **/
+			"Heb,  He",
+			/** James **/
+			"Jas,  Ja",
+			/** 1 Peter **/
+			"1 Pet,  1 Pt, 1P",
+			/** 2 Peter **/
+			"2 Pet,  2 Pt, 2P",
+			/** 1 John **/
+			"1 John,  1 Jn, 1 Jo, 1J",
+			/** 2 John **/
+			"2 John,  2 Jn, 2 Jo, 2J",
+			/** 3 John **/
+			"3 John,  3 Jn, 3 Jo, 3J",
+			/** Jude **/
+			"Jude,  Ju",
+			/** Revelation **/
+			"Rev,  Re, Rv, Apoc,  Ap" };
+
 	/**
 	 * <code>
 	 * CHAPTERS
@@ -96,80 +244,6 @@ public class BibleConstants {
 	public static final int[] NUMBER_OF_CHAPTERS_BY_BOOK_NAME = { 50, 40, 27, 36, 34, 24, 21, 4, 31, 24, 22, 25, 29, 36,
 			10, 13, 14, 16, 10, 16, 15, 42, 150, 31, 12, 8, 19, 51, 66, 52, 5, 6, 48, 14, 14, 4, 9, 1, 4, 7, 3, 3, 3, 2,
 			14, 3, 28, 16, 24, 21, 28, 16, 16, 13, 6, 6, 4, 4, 5, 3, 6, 4, 3, 1, 13, 5, 5, 3, 5, 1, 1, 1, 22 };
-
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_GENESIS = 50;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_EXODUS = 40;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_LEVITICUS = 27;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_NUMBERS = 36;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_DEUTERONOMY = 34;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JOSHUA = 24;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JUDGES = 21;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_RUTH = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_SAMUEL = 31;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_SAMUEL = 24;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_KINGS = 22;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_KINGS = 25;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_CHRONICLES = 29;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_CHRONICLES = 36;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_EZRA = 10;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_NEHEMIAH = 13;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_TOBIT = 14;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JUDITH = 16;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ESTHER = 10;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_MACCABEES = 16;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_MACCABEES = 15;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JOB = 42;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_PSALMS = 150;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_PROVERBS = 31;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ECCLESIASTES = 12;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_SONG_OF_SONGS = 8;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_WISDOM = 19;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_SIRACH = 51;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ISAIAH = 66;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JEREMIAH = 52;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_LAMENTATIONS = 5;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_BARUCH = 6;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_EZEKIEL = 48;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_DANIEL = 14;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_HOSEA = 14;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JOEL = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_AMOS = 9;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_OBADIAH = 1;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JONAH = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_MICAH = 7;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_NAHUM = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_HABAKKUK = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ZEPHANIAH = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_HAGGAI = 2;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ZECHARIAH = 14;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_MALACHI = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_MATTHEW = 28;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_MARK = 16;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_LUKE = 24;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JOHN = 21;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ACTS = 28;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_ROMANS = 16;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_CORINTHIANS = 16;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_CORINTHIANS = 13;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_GALATIANS = 6;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_EPHESIANS = 6;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_PHILIPPIANS = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_COLOSSIANS = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_THESSALONIANS = 5;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_THESSALONIANS = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_TIMOTHY = 6;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_TIMOTHY = 4;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_TITUS = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_PHILEMON = 1;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_HEBREWS = 13;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JAMES = 5;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_PETER = 5;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_PETER = 3;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_1_JOHN = 5;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_2_JOHN = 1;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_3_JOHN = 1;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_JUDE = 1;
-	public static final Integer NUMBER_OF_CHAPTERS_FOR_BOOK_OF_REVELATION = 22;
 
 	public static final Integer NUMBER_OF_ALL_CHAPTERS_FOR_ALL_BOOKS = 1328;
 
