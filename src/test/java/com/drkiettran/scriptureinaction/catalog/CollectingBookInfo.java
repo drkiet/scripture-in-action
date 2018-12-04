@@ -38,7 +38,7 @@ public class CollectingBookInfo {
 	@Steps
 	CollectingSteps collector;
 
-	@Test
+	@Ignore
 	public void should_get_all_the_names_of_the_books() {
 		collector.visits_usccb_web_site(USCCB_BIBLE_URL);
 		List<String> bookNames = collector.gathers_the_names_of_the_books();
@@ -48,7 +48,7 @@ public class CollectingBookInfo {
 		makeArrayOfAllBookNames(bookNames, "public static final String[] NAMES_OF_ALL_BOOKS = {");
 	}
 
-	@Test
+	@Ignore
 	public void should_get_name_of_collections() {
 		collector.visits_usccb_web_site(USCCB_BIBLE_URL);
 		List<String> collectionNames = collector.gathers_the_names_of_the_collections();
@@ -59,7 +59,7 @@ public class CollectingBookInfo {
 				"public static final String[] NAMES_OF_BOOKS_BY_COLLECTIONS = {");
 	}
 
-	@Test
+	@Ignore
 	public void should_get_number_of_chapters_by_books() {
 		collector.visits_usccb_web_site(USCCB_BIBLE_URL);
 		StringBuilder numberChaptersArrayVar = new StringBuilder(
@@ -88,7 +88,7 @@ public class CollectingBookInfo {
 		logger.info("generated code:\n{}", numberChaptersVar);
 	}
 
-	@Test
+	@Ignore
 	public void should_get_number_of_verses_by_chapter_by_book() {
 		List<Integer[]> versesPerBooks = collector.get_number_of_verses_by_chapter_by_book_name(USCC_BIBLE_CONTENT_URL,
 				BibleConstants.NAMES_OF_ALL_BOOKS, BibleConstants.NUMBER_OF_CHAPTERS_BY_BOOK_NAME);

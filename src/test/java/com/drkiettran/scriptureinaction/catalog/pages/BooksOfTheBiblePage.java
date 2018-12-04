@@ -1,13 +1,14 @@
 package com.drkiettran.scriptureinaction.catalog.pages;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.drkiettran.scriptureinaction.catalog.util.TestUtils;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -77,7 +78,7 @@ public class BooksOfTheBiblePage extends PageObject {
 			} else if ("2 Maccabees".equalsIgnoreCase(bookName)) {
 				bookName = "2mc";
 			}
-			String xpath = String.format("//a[contains(@href,'%s')]", compressLowercase(bookName));
+			String xpath = String.format("//a[contains(@href,'%s')]", TestUtils.compressLowercase(bookName));
 
 			numberOfChaptersByBookName[i] = getDriver().findElements(By.xpath(xpath)).size();
 		}
@@ -92,16 +93,12 @@ public class BooksOfTheBiblePage extends PageObject {
 			List<Integer> numberOfVersesByChapterList = numberOfVersesByChapterByBookNameTable.get(bookName);
 			for (int chapIdx = 0; chapIdx < numberOfVersesByChapterList.size(); chapIdx++) {
 				logger.info("getting number of verses for chapter {} for book {}", chapIdx + 1, bookName);
-				String url = String.format("%s/%s/%d", usccBibleContentUrl, compressLowercase(bookName), chapIdx + 1);
+				String url = String.format("%s/%s/%d", usccBibleContentUrl, TestUtils.compressLowercase(bookName), chapIdx + 1);
 
 				getDriver().get(url);
 				numberOfVersesByChapterList.set(chapIdx, getDriver().findElements(By.xpath(xpath)).size());
 			}
 		}
-	}
-
-	private Object compressLowercase(String bookName) {
-		return bookName.toLowerCase().trim().replaceAll(" ", "");
 	}
 
 	public List<Integer[]> getNumberOfVersesByChapterByBookName(String usccBibleContentUrl, String[] bookNames,
@@ -111,7 +108,7 @@ public class BooksOfTheBiblePage extends PageObject {
 		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
 			Integer[] versesPerChapter = new Integer[numChaps[bookIdx]];
 			for (int chapIdx = 0; chapIdx < numChaps[bookIdx]; chapIdx++) {
-				String url = String.format("%s/%s/%d", usccBibleContentUrl, compressLowercase(bookNames[bookIdx]),
+				String url = String.format("%s/%s/%d", usccBibleContentUrl, TestUtils.compressLowercase(bookNames[bookIdx]),
 						chapIdx + 1);
 
 				getDriver().get(url);

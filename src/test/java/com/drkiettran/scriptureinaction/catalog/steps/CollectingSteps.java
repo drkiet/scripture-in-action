@@ -1,7 +1,6 @@
 package com.drkiettran.scriptureinaction.catalog.steps;
 
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.UUID;
 
