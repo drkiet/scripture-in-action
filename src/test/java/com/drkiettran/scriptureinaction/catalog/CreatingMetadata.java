@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.drkiettran.scriptureinaction.BibleConstants;
+import com.drkiettran.scriptureinaction.model.constants.NewAmerican;
 
 public class CreatingMetadata {
 	private static final Logger logger = LoggerFactory.getLogger(CreatingMetadata.class);
@@ -18,28 +18,28 @@ public class CreatingMetadata {
 
 		//
 		int startIdx = 0;
-		int endIdx = BibleConstants.NUMBER_OF_ALL_BOOKS;
+		int endIdx = NewAmerican.NUMBER_OF_ALL_BOOKS;
 
 		String fileName = "book-names";
-		String content = makeContent(BibleConstants.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
+		String content = makeContent(NewAmerican.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
 		writeTextToFile(fileName, content);
 
-		endIdx = BibleConstants.NUMBER_OF_OT_BOOKS;
+		endIdx = NewAmerican.NUMBER_OF_OT_BOOKS;
 		fileName = "old-testament-book-names";
-		content = makeContent(BibleConstants.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
+		content = makeContent(NewAmerican.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
 		writeTextToFile(fileName, content);
 
 		//
-		startIdx = BibleConstants.NUMBER_OF_OT_BOOKS;
-		endIdx = BibleConstants.NUMBER_OF_ALL_BOOKS;
+		startIdx = NewAmerican.NUMBER_OF_OT_BOOKS;
+		endIdx = NewAmerican.NUMBER_OF_ALL_BOOKS;
 		fileName = "new-testament-book-names";
-		content = makeContent(BibleConstants.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
+		content = makeContent(NewAmerican.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
 		writeTextToFile(fileName, content);
 
-		int[] lens = { BibleConstants.NUMBER_OF_PENTATEUCH_BOOKS, BibleConstants.NUMBER_OF_HISTORICAL_BOOKS,
-				BibleConstants.NUMBER_OF_BIBLICAL_NOVELLAS_BOOKS, BibleConstants.NUMBER_OF_WISDOM_BOOKS,
-				BibleConstants.NUMBER_OF_PROPHETIC_BOOKS, BibleConstants.NUMBER_OF_GOSPEL_BOOKS,
-				BibleConstants.NUMBER_OF_LETTER_BOOKS, BibleConstants.NUMBER_OF_CATHOLIC_LETTER_BOOKS };
+		int[] lens = { NewAmerican.NUMBER_OF_PENTATEUCH_BOOKS, NewAmerican.NUMBER_OF_HISTORICAL_BOOKS,
+				NewAmerican.NUMBER_OF_BIBLICAL_NOVELLAS_BOOKS, NewAmerican.NUMBER_OF_WISDOM_BOOKS,
+				NewAmerican.NUMBER_OF_PROPHETIC_BOOKS, NewAmerican.NUMBER_OF_GOSPEL_BOOKS,
+				NewAmerican.NUMBER_OF_LETTER_BOOKS, NewAmerican.NUMBER_OF_CATHOLIC_LETTER_BOOKS };
 
 		String[] collectionNames = { "Pentateuch", "Historical", "Biblical-Novellas", "Wisdom", "Prophetic", "Gospel",
 				"Letter", "Catholic-Letter" };
@@ -50,22 +50,22 @@ public class CreatingMetadata {
 		for (int i = 0; i < lens.length; i++) {
 			fileName = String.format("%s-book-name", collectionNames[i]).toLowerCase();
 			endIdx += lens[i];
-			content = makeContent(BibleConstants.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
+			content = makeContent(NewAmerican.NAMES_OF_ALL_BOOKS, startIdx, endIdx);
 			writeTextToFile(fileName, content);
 			startIdx += lens[i];
 		}
 
 		//
 		startIdx = 0;
-		endIdx = BibleConstants.NUMBER_OF_ALL_BOOKS;
+		endIdx = NewAmerican.NUMBER_OF_ALL_BOOKS;
 
 		fileName = "abbrev-book-names";
-		content = makeContent(BibleConstants.ABBREVIATIONS_OF_ALL_BOOKS, startIdx, endIdx);
+		content = makeContent(NewAmerican.ABBREVIATIONS_OF_ALL_BOOKS, startIdx, endIdx);
 		writeTextToFile(fileName, content);
 
 		//
 		StringBuilder sb = new StringBuilder();
-		int[] numChaptersByBook = BibleConstants.NUMBER_OF_CHAPTERS_BY_BOOK_NAME;
+		int[] numChaptersByBook = NewAmerican.NUMBER_OF_CHAPTERS_BY_BOOK_NAME;
 		for (int i = 0; i < numChaptersByBook.length; i++) {
 			sb.append(i + 1).append(' ').append(numChaptersByBook[i]).append('\n');
 		}
@@ -75,7 +75,7 @@ public class CreatingMetadata {
 
 		//
 		sb = new StringBuilder();
-		int[][] numVersesByBook = BibleConstants.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK_NAME;
+		int[][] numVersesByBook = NewAmerican.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK_NAME;
 		for (int i = 0; i < numVersesByBook.length; i++) {
 			sb.append(i + 1);
 			for (int verses : numVersesByBook[i]) {

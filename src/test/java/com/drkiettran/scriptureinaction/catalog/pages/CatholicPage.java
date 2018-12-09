@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
-
-import com.drkiettran.scriptureinaction.catalog.util.TestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
 
 public class CatholicPage extends PageObject {
+	private static final Logger logger = LoggerFactory.getLogger(CatholicPage.class);
 
 	public String getFirstChapterHeading(String catholicContentUrl, int bookNo) {
 		String firstChapterUrl = String.format("%s?id=%d", catholicContentUrl, bookNo);
@@ -31,6 +32,7 @@ public class CatholicPage extends PageObject {
 			List<String> verses = new ArrayList<String>();
 
 			for (int verseIdx = 0; verseIdx < numVerses; verseIdx++) {
+				logger.info("verseidx: {}", verseIdx);
 				int verseNo = verseIdx + 1;
 				verses.add(verseElements.get(verseIdx).getText());
 			}

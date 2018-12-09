@@ -1,4 +1,4 @@
-package com.drkiettran.scriptureinaction.catalog.pages;
+package com.drkiettran.scriptureinaction.catalog.nab;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -20,8 +20,8 @@ import net.serenitybdd.core.pages.PageObject;
  * @author ktran
  *
  */
-public class BooksOfTheBiblePage extends PageObject {
-	private static final Logger logger = LoggerFactory.getLogger(BooksOfTheBiblePage.class);
+public class NabPage extends PageObject {
+	private static final Logger logger = LoggerFactory.getLogger(NabPage.class);
 	@FindBy(xpath = "//div[@id='CS_Element_maincontent']//table")
 	private WebElement table;
 
@@ -67,8 +67,9 @@ public class BooksOfTheBiblePage extends PageObject {
 		return bookNamesByCollections;
 	}
 
-	public int[] getNumberOfChaptersByBookName(String[] namesOfAllBooks) {
+	public int[] getNumberOfChaptersByBookName(String url, String[] namesOfAllBooks) {
 		int[] numberOfChaptersByBookName = new int[namesOfAllBooks.length];
+		getDriver().get(url);
 
 		for (int i = 0; i < namesOfAllBooks.length; i++) {
 			String bookName = namesOfAllBooks[i];
@@ -78,7 +79,7 @@ public class BooksOfTheBiblePage extends PageObject {
 			} else if ("2 Maccabees".equalsIgnoreCase(bookName)) {
 				bookName = "2mc";
 			}
-			String xpath = String.format("//a[contains(@href,'%s')]", TestUtils.compressLowercase(bookName));
+			String xpath = String.format("//a[contains(@href,'/bible/%s/')]", TestUtils.compressLowercase(bookName));
 
 			numberOfChaptersByBookName[i] = getDriver().findElements(By.xpath(xpath)).size();
 		}
@@ -93,7 +94,8 @@ public class BooksOfTheBiblePage extends PageObject {
 			List<Integer> numberOfVersesByChapterList = numberOfVersesByChapterByBookNameTable.get(bookName);
 			for (int chapIdx = 0; chapIdx < numberOfVersesByChapterList.size(); chapIdx++) {
 				logger.info("getting number of verses for chapter {} for book {}", chapIdx + 1, bookName);
-				String url = String.format("%s/%s/%d", usccBibleContentUrl, TestUtils.compressLowercase(bookName), chapIdx + 1);
+				String url = String.format("%s/%s/%d", usccBibleContentUrl, TestUtils.compressLowercase(bookName),
+						chapIdx + 1);
 
 				getDriver().get(url);
 				numberOfVersesByChapterList.set(chapIdx, getDriver().findElements(By.xpath(xpath)).size());
@@ -108,8 +110,8 @@ public class BooksOfTheBiblePage extends PageObject {
 		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
 			Integer[] versesPerChapter = new Integer[numChaps[bookIdx]];
 			for (int chapIdx = 0; chapIdx < numChaps[bookIdx]; chapIdx++) {
-				String url = String.format("%s/%s/%d", usccBibleContentUrl, TestUtils.compressLowercase(bookNames[bookIdx]),
-						chapIdx + 1);
+				String url = String.format("%s/%s/%d", usccBibleContentUrl,
+						TestUtils.compressLowercase(bookNames[bookIdx]), chapIdx + 1);
 
 				getDriver().get(url);
 				versesPerChapter[chapIdx] = getDriver().findElements(By.xpath("//span[@class='bcv']")).size();
