@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import java.util.List;
 
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -109,6 +110,59 @@ public class CollectNewAmerican {
 		sb.append("};");
 		logger.info("generated code:\n{}", sb);
 
+	}
+
+	@Test
+	public void collect_misc_info() {
+		String folder = System.getProperty("sia.bible.nab.text.folder");
+		String text = "";
+
+		text = nabSteps.collect_preface(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "preface", "misc", text, folder);
+
+		text = nabSteps.collect_the_pentateuch(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "the_pentateuch", "misc", text, folder);
+
+		text = nabSteps.collect_historical_introduction(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "historical_introduction", "misc", text, folder);
+
+		text = nabSteps.collect_biblical_novellas(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "biblical_novellas", "misc", text, folder);
+
+		text = nabSteps.collect_wisdom_books(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "wisdom_books", "misc", text, folder);
+
+		text = nabSteps.collect_prophetic_books(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "prophetic_books", "misc", text, folder);
+
+		text = nabSteps.collect_new_testament(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "new_testament", "misc", text, folder);
+
+		text = nabSteps.collect_gospels_introduction(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "gospels_introduction", "misc", text, folder);
+
+		text = nabSteps.collect_new_testament_letters(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "new_testament_letters", "misc", text, folder);
+
+		text = nabSteps.collect_catholic_letters(USCCB_BIBLE_URL);
+		logger.info("text:\n{}", text);
+		TestUtils.writeTextToFile(0, "catholic_letters", "misc", text, folder);
+
+		List<String> texts = nabSteps.collect_introductions(USCCB_BIBLE_URL, NewAmerican.NAMES_OF_ALL_BOOKS);
+
+		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
+			TestUtils.writeTextToFile(bookIdx + 1, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], "intro", texts.get(bookIdx),
+					folder);
+		}
 	}
 
 }

@@ -122,4 +122,15 @@ public class TestUtils {
 
 		return;
 	}
+
+	public static void rest(int delayInSecs) {
+		long delayInMillis = (long) (delayInSecs) * 1000L;
+
+		try {
+			Thread.sleep(delayInMillis);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

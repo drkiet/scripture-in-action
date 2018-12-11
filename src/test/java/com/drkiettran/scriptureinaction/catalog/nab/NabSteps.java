@@ -50,8 +50,7 @@ public class NabSteps extends ScenarioSteps {
 	@Step
 	public List<Integer[]> get_number_of_verses_by_chapter_by_book_name(String usccBibleContentUrl, String[] bookNames,
 			int[] numberOfChaptersByBookName) {
-		return nabPage.getNumberOfVersesByChapterByBookName(usccBibleContentUrl, bookNames,
-				numberOfChaptersByBookName);
+		return nabPage.getNumberOfVersesByChapterByBookName(usccBibleContentUrl, bookNames, numberOfChaptersByBookName);
 	}
 
 	@Step
@@ -69,7 +68,49 @@ public class NabSteps extends ScenarioSteps {
 	public List<String> get_abbreviations_names(String catholicResourcesAbbreviationsUrl, String[] namesOfAllBooks) {
 		return abbrevPage.getAbbreviationsInEnglish(catholicResourcesAbbreviationsUrl, namesOfAllBooks);
 	}
+ 
+	public String collect_preface(String usccbBibleUrl) {
+		return nabPage.getPreface(usccbBibleUrl);
+	}
 
-	
-	
+	public String collect_the_pentateuch(String usccbBibleUrl) {
+		return nabPage.getThePentateuch(usccbBibleUrl);
+	}
+
+	public String collect_biblical_novellas(String usccbBibleUrl) {
+		return nabPage.getBiblicalNovellas(usccbBibleUrl);
+	}
+
+	public String collect_historical_introduction(String usccbBibleUrl) {
+		return nabPage.getHistoricalIntroduction(usccbBibleUrl);
+	}
+
+	public String collect_wisdom_books(String usccbBibleUrl) {
+		return nabPage.getWisdomBooks(usccbBibleUrl);
+	}
+
+	public String collect_prophetic_books(String usccbBibleUrl) {
+		return nabPage.getPropheticBooks(usccbBibleUrl);
+	}
+
+	public String collect_new_testament(String usccbBibleUrl) {
+		return nabPage.getNewTestament(usccbBibleUrl);
+	}
+
+	public String collect_gospels_introduction(String usccbBibleUrl) {
+		return nabPage.getGospelsIntroduction(usccbBibleUrl);
+	}
+
+	public String collect_new_testament_letters(String usccbBibleUrl) {
+		return nabPage.getNewTestamentLetters(usccbBibleUrl);
+	}
+
+	public String collect_catholic_letters(String usccbBibleUrl) {
+		return nabPage.getCatholicLetters(usccbBibleUrl);
+	}
+
+	public List<String> collect_introductions(String usccbBibleUrl, String[] bookNames) {
+		return nabPage.getIntroductions(usccbBibleUrl, bookNames);
+	}
+
 }

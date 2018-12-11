@@ -136,4 +136,63 @@ public class NabPage extends PageObject {
 		}
 	}
 
+	public String getMisc(String url, String xpathLink) {
+		getDriver().get(url);
+		getDriver().findElement(By.xpath(xpathLink)).click();
+		logger.info("raw: \n{}", getDriver().findElements(By.xpath("//div[@class='contentarea']")).get(0).getText());
+		return getDriver().findElements(By.xpath("//div[@class='contentarea']")).get(0).getText();
+	}
+
+	public String getPreface(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'preface')]");
+	}
+
+	public String getThePentateuch(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'pentateuch')]");
+	}
+
+	public String getBiblicalNovellas(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'novellas')]");
+	}
+
+	public String getHistoricalIntroduction(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'historical')]");
+	}
+
+	public String getWisdomBooks(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'wisdom')]");
+	}
+
+	public String getPropheticBooks(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'prophetic')]");
+	}
+
+	public String getNewTestament(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'new-testament-intro')]");
+	}
+
+	public String getGospelsIntroduction(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'gospels')]");
+	}
+
+	public String getNewTestamentLetters(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'new-testament-letters')]");
+	}
+
+	public String getCatholicLetters(String usccbBibleUrl) {
+		return getMisc(usccbBibleUrl, "//a[contains(@href,'catholic-letters')]");
+	}
+
+	public List<String> getIntroductions(String usccbBibleUrl, String[] bookNames) {
+		List<String> intros = new ArrayList<String>();
+
+		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
+			String url = String.format("%s/%s/0", usccbBibleUrl, TestUtils.compressLowercase(bookNames[bookIdx]));
+			getDriver().get(url);
+			intros.add(getDriver().findElement(By.xpath("//div[@class='contentarea']")).getText());
+		}
+
+		return intros;
+	}
+
 }
