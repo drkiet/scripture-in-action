@@ -22,3 +22,36 @@ Important web sites:
 	- Douay-Rheims (DR) & Latin Vulgate (LV): `http://www.drbo.org/`
 	- Abbreviations: `http://catholic-resources.org/Bible/Abbreviations-Abreviaciones.htm`
  
+== Cataloging process
+The process of cataloging the bible of the four major translation
+that is approved by the Catholic Church was through the use
+of Selenium WebDriver along with manual corrections of the 
+final contents and file names. In the end, the text of the 
+bible of the four translations are: New American, Revised Standard,
+Douay-Rheims, and Latin Vulgate.
+
+The code for cataloging is in the /src/test file. 
+
+= APACHE SOLR Search Engine
+I use Apache Solr to index the text for searching. The code for this 
+effort is mostly in the 'query' package.
+
+== Creating a collection
+I use this command:
+
+```
+./bin/solr create -c bible -s 2 -rf 2
+```
+
+== Posting to the collection:
+
+```
+./bin/post -c bible /media/kiet/toshiba1/Ebooks/bible
+
+```
+
+
+
+
+
+

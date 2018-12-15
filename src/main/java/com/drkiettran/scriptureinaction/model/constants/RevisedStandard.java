@@ -277,7 +277,7 @@ public class RevisedStandard implements DouayRheims, LatinVulgate {
 			/** 58 **/
 			5,
 			/** 59 **/
-			1,
+			3,
 			/** 60 **/
 			6,
 			/** 61 **/
@@ -449,7 +449,7 @@ public class RevisedStandard implements DouayRheims, LatinVulgate {
 			/** (58)1 Thessalonians **/
 			{ 10, 20, 13, 18, 28 },
 			/** (59)2 Thessalonians **/
-			{ 50 },
+			{ 12, 17, 18 },
 			/** (60)1 Timothy **/
 			{ 20, 15, 16, 16, 25, 21 },
 			/** (61)2 Timothy **/
@@ -463,7 +463,7 @@ public class RevisedStandard implements DouayRheims, LatinVulgate {
 			/** (65)James **/
 			{ 27, 26, 18, 17, 20 },
 			/** (66)1 Peter **/
-			{ 24, 25, 22, 19, 14 },
+			{ 25, 25, 22, 19, 14 },
 			/** (67)2 Peter **/
 			{ 21, 22, 18 },
 			/** (68)1 John **/

@@ -21,7 +21,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SerenityRunner.class) 
 public class CollectingTextNAB {
 	public static final Logger logger = LoggerFactory.getLogger(CollectingTextNAB.class);
 	private static final String USCC_BIBLE_CONTENT_URL = "http://www.usccb.org/bible";
