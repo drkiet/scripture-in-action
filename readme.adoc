@@ -56,6 +56,10 @@ I use this command:
 In addition to the text, the New American Bible online 
 provides comments as well as links / references for some verses.
 
+== Maven build command with tag:
+```
+mvn -Dsia.bible.nab.metadata.folder=/media/kiet/toshiba1/Ebooks/bibles/metadata/nab -Dsia.bible.nab.text.folder=/media/kiet/toshiba1/Ebooks/bibles/nab -Dsia.bible.rsv.text.folder=/media/kiet/toshiba1/Ebooks/bibles/rsv -Dsia.bible.dr.text.folder=/media/kiet/toshiba1/Ebooks/bibles/dr -Dsia.bible.lv.text.folder=/media/kiet/toshiba1/Ebooks/bibles/lv -Dsonar.host.url=http://localhost:9000 -Dsonar.login=9f40da8a3d273cd1d47f0f038d054dba883c1c7b -Dsonar.login=admin -Dsonar.password=admin install test sonar:sonar
+```
 
 
 

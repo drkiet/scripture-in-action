@@ -1,7 +1,11 @@
 package com.drkiettran.scriptureinaction.model;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
+import org.h2.util.StringUtils;
+
+import com.drkiettran.scriptureinaction.util.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Verse {
@@ -88,7 +92,7 @@ public class Verse {
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		parse(text);
 	}
 
 	public List<String> getRelatedVerseIds() {
@@ -119,6 +123,22 @@ public class Verse {
 		StringBuilder sb = new StringBuilder("   verse ").append(verseNumber);
 		sb.append(" has ").append(text.split(" ").length - 1).append(" words.\n");
 		return sb.toString();
+	}
+
+	public void parse(String text) {
+		this.text = text;
+		verseNumber = -1; // bad number
+
+		int index = text.indexOf(' ');
+		if (index < 0) {
+			return;
+		}
+
+		String number = text.substring(0, index);
+
+		if (StringUtils.isNumber(number)) {
+			verseNumber = Integer.valueOf(number);
+		}
 	}
 
 }

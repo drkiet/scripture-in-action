@@ -730,7 +730,6 @@ public interface NewAmerican {
 			for (int nameIdx = 0; nameIdx < ABBREVIATIONS_OF_ALL_BOOKS.length; nameIdx++) {
 				String[] abbrevNames = ABBREVIATIONS_OF_ALL_BOOKS[nameIdx].split(", ");
 				for (String abbrevName : abbrevNames) {
-					logger.info("{} maps to {}", abbrevName.trim(), nameIdx);
 					shortNameMap.put(abbrevName.trim(), nameIdx);
 				}
 			}

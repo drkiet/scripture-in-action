@@ -135,7 +135,7 @@ public class Link {
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		parse(text);
 	}
 
 	public List<String> getRelatedVerseIds() {

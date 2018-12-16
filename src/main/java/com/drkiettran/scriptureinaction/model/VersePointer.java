@@ -56,7 +56,7 @@ public class VersePointer {
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		parse(text);
 	}
 
 	public String getBookName() {
