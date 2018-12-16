@@ -23,6 +23,18 @@ public class Chapter {
 	@JsonProperty("verses")
 	private List<Verse> verses;
 
+	@JsonProperty("link_ids")
+	private List<String> linkIds;
+
+	@JsonProperty("links")
+	private List<Link> links;
+
+	@JsonProperty("comment_ids")
+	private List<String> commentIds;
+
+	@JsonProperty("comments")
+	private List<Commentary> comments;
+
 	public String getChapterId() {
 		return chapterId;
 	}
@@ -69,6 +81,38 @@ public class Chapter {
 
 	public void setVerses(List<Verse> verses) {
 		this.verses = verses;
+	}
+
+	public List<String> getLinkIds() {
+		return linkIds;
+	}
+
+	public void setLinkIds(List<String> linkIds) {
+		this.linkIds = linkIds;
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
+	public List<String> getCommentIds() {
+		return commentIds;
+	}
+
+	public void setCommentIds(List<String> commentIds) {
+		this.commentIds = commentIds;
+	}
+
+	public List<Commentary> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Commentary> comments) {
+		this.comments = comments;
 	}
 
 	public String logChapterSummary() {

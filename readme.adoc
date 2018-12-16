@@ -32,6 +32,8 @@ Douay-Rheims, and Latin Vulgate.
 
 The code for cataloging is in the /src/test file. 
 
+PRESERVED this code in a different branch.
+
 = APACHE SOLR Search Engine
 I use Apache Solr to index the text for searching. The code for this 
 effort is mostly in the 'query' package.
@@ -46,9 +48,13 @@ I use this command:
 == Posting to the collection:
 
 ```
-./bin/post -c bible /media/kiet/toshiba1/Ebooks/bible
+./bin/post -c bible /media/kiet/toshiba1/Ebooks/bibles
 
 ```
+
+== Verse References
+In addition to the text, the New American Bible online 
+provides comments as well as links / references for some verses.
 
 
 

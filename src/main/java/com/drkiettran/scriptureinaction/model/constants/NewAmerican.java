@@ -1,6 +1,12 @@
 package com.drkiettran.scriptureinaction.model.constants;
 
+import java.util.Hashtable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public interface NewAmerican {
+	public static final Logger logger = LoggerFactory.getLogger(NewAmerican.class);
 
 	String OT_NAME = "Old Testament";
 	String NT_NAME = "New Testament";
@@ -708,5 +714,29 @@ public interface NewAmerican {
 			/** Revelation **/
 			{ 20, 29, 22, 11, 14, 17, 17, 13, 21, 11, 19, 18, 18, 20, 8, 21, 18, 24, 21, 15, 27, 21 } };
 	Integer NUMBER_OF_ALL_VERSES_FOR_ALL_BOOKS = 35528;
+
+	public static final Hashtable<String, Integer> shortNameMap = new Hashtable<String, Integer>();
+
+	/**
+	 * Returns the name of a book on a abbreviated (short) name. For example, Mt
+	 * returns Matthews.
+	 * 
+	 * @param shortName
+	 * @return
+	 */
+	public static String getBookNameByShortName(String shortName) {
+		logger.info("get name for '{}'", shortName);
+		if (shortNameMap.size() == 0) {
+			for (int nameIdx = 0; nameIdx < ABBREVIATIONS_OF_ALL_BOOKS.length; nameIdx++) {
+				String[] abbrevNames = ABBREVIATIONS_OF_ALL_BOOKS[nameIdx].split(", ");
+				for (String abbrevName : abbrevNames) {
+					logger.info("{} maps to {}", abbrevName.trim(), nameIdx);
+					shortNameMap.put(abbrevName.trim(), nameIdx);
+				}
+			}
+		}
+		logger.info("'{}' get {}", shortName, shortNameMap.get(shortName));
+		return NAMES_OF_ALL_BOOKS[shortNameMap.get(shortName)];
+	}
 
 }

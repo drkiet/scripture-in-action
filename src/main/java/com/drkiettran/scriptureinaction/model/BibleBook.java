@@ -14,6 +14,15 @@ public class BibleBook {
 	@JsonProperty("other_names")
 	private List<String> otherNames;
 
+	public static final String PENTATEUCH = "pentateuch";
+	public static final String HISTORICAL = "historical";
+	public static final String NOVELLAS = "novellas";
+	public static final String WISDOM = "wisdom";
+	public static final String PROPHETIC = "prophetic";
+	public static final String GOSPELS = "gospels";
+	public static final String LETTERS = "letters";
+	public static final String CATHOLIC_LETTERS = "catholic_letters";
+
 	/**
 	 * - pentateuch - historical - novellas - wisdom - prophetic - gospels - letters
 	 * - catholic_letters
@@ -21,6 +30,8 @@ public class BibleBook {
 	@JsonProperty("collection_name")
 	private String collectionName;
 
+	public static final String NT = "new_testament";
+	public static final String OT = "old_testament";
 	/**
 	 * old_testament new_testament
 	 */

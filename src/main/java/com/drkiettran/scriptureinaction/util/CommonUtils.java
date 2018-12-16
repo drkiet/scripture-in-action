@@ -28,4 +28,17 @@ public class CommonUtils {
 	public static String getUniqeId() {
 		return UUID.randomUUID().toString();
 	}
+
+	public static String cleansingNumberOnly(String number) {
+		logger.info("number {}", number);
+		StringBuilder sb = new StringBuilder();
+		for (int index = 0; index < number.length(); index++) {
+			if (Character.isDigit(number.charAt(index))) {
+				sb.append(number.charAt(index));
+			}
+		}
+		logger.info("number {}", sb);
+		return sb.toString();
+	}
+
 }

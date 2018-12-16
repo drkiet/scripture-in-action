@@ -13,10 +13,7 @@ import org.springframework.stereotype.Component;
 import com.drkiettran.scriptureinaction.model.BibleBook;
 import com.drkiettran.scriptureinaction.model.Chapter;
 import com.drkiettran.scriptureinaction.model.Verse;
-import com.drkiettran.scriptureinaction.model.constants.DouayRheims;
-import com.drkiettran.scriptureinaction.model.constants.LatinVulgate;
 import com.drkiettran.scriptureinaction.model.constants.NewAmerican;
-import com.drkiettran.scriptureinaction.model.constants.RevisedStandard;
 import com.drkiettran.scriptureinaction.util.CommonUtils;
 
 @Component

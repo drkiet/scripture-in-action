@@ -31,71 +31,59 @@ public class AboutBookTest {
 
 	@Test
 	public void shouldGetNumberOfChaptersByBook() {
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", NewAmerican.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.NAB);
-			givenTranslationAndName(BibleBook.NAB, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfChapters();
-			thenNumChaptersShouldEqual(NewAmerican.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx]);
-		}
-
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", RevisedStandard.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.RSV);
-			givenTranslationAndName(BibleBook.RSV, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfChapters();
-			thenNumChaptersShouldEqual(RevisedStandard.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx]);
-		}
-
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", DouayRheims.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.DR);
-			givenTranslationAndName(BibleBook.DR, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfChapters();
-			thenNumChaptersShouldEqual(DouayRheims.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx]);
-		}
-
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", LatinVulgate.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.LV);
-			givenTranslationAndName(BibleBook.LV, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfChapters();
-			thenNumChaptersShouldEqual(LatinVulgate.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx]);
-		}
-
+		verifyNumberOfChaptersByBook(NewAmerican.NAMES_OF_ALL_BOOKS, NewAmerican.NUMBER_OF_CHAPTERS_BY_BOOK_NAME,
+				BibleBook.NAB);
+		verifyNumberOfChaptersByBook(NewAmerican.NAMES_OF_ALL_BOOKS, RevisedStandard.NUMBER_OF_CHAPTERS_BY_BOOK_NAME,
+				BibleBook.RSV);
+		verifyNumberOfChaptersByBook(NewAmerican.NAMES_OF_ALL_BOOKS, DouayRheims.NUMBER_OF_CHAPTERS_BY_BOOK_NAME,
+				BibleBook.DR);
+		verifyNumberOfChaptersByBook(NewAmerican.NAMES_OF_ALL_BOOKS, LatinVulgate.NUMBER_OF_CHAPTERS_BY_BOOK_NAME,
+				BibleBook.LV);
 	}
 
 	@Test
 	public void shouldGetNumberOfVersesByChapterByBook() {
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", NewAmerican.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.NAB);
-			givenTranslationAndName(BibleBook.NAB, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfVersesByChapter();
-			thenNumVersesByChapterShouldEqual(NewAmerican.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK_NAME[bookIdx]);
-		}
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", RevisedStandard.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.RSV);
-			givenTranslationAndName(BibleBook.RSV, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfVersesByChapter();
-			thenNumVersesByChapterShouldEqual(RevisedStandard.NUMBER_OF_VERSES_BY_CHAPTERS_BY_BOOK_NAME[bookIdx]);
-		}
+		verifyNumberOfVersesByChapterByBook(NewAmerican.NAMES_OF_ALL_BOOKS,
+				NewAmerican.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK_NAME, BibleBook.NAB);
 
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", DouayRheims.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.DR);
-			givenTranslationAndName(BibleBook.DR, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
-			whenQueryNumberOfVersesByChapter();
-			thenNumVersesByChapterShouldEqual(DouayRheims.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK[bookIdx]);
-		}
+		verifyNumberOfVersesByChapterByBook(NewAmerican.NAMES_OF_ALL_BOOKS,
+				RevisedStandard.NUMBER_OF_VERSES_BY_CHAPTERS_BY_BOOK_NAME, BibleBook.RSV);
 
-		for (int bookIdx = 0; bookIdx < NewAmerican.NAMES_OF_ALL_BOOKS.length; bookIdx++) {
-			logger.info("expected {} chapters for {} ({})", LatinVulgate.NUMBER_OF_CHAPTERS_BY_BOOK_NAME[bookIdx],
-					NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx], BibleBook.LV);
-			givenTranslationAndName(BibleBook.LV, NewAmerican.NAMES_OF_ALL_BOOKS[bookIdx]);
+		verifyNumberOfVersesByChapterByBook(NewAmerican.NAMES_OF_ALL_BOOKS,
+				DouayRheims.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK, BibleBook.DR);
+
+		verifyNumberOfVersesByChapterByBook(NewAmerican.NAMES_OF_ALL_BOOKS,
+				LatinVulgate.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK, BibleBook.LV);
+
+	}
+
+	@Test
+	public void shouldGetBookNameByAbbreviation() {
+		String[] abbrevs = NewAmerican.ABBREVIATIONS_OF_ALL_BOOKS;
+
+		for (int bookIdx = 0; bookIdx < abbrevs.length; bookIdx++) {
+			logger.info("Value = {}", abbrevs[bookIdx]);
+		}
+	}
+
+	// Supporting code.
+	private void verifyNumberOfChaptersByBook(String[] bookNames, int[] numberChapters, String translatioType) {
+		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
+			logger.info("expected {} chapters for {} ({})", numberChapters[bookIdx], bookNames[bookIdx],
+					translatioType);
+			givenTranslationAndName(translatioType, bookNames[bookIdx]);
+			whenQueryNumberOfChapters();
+			thenNumChaptersShouldEqual(numberChapters[bookIdx]);
+		}
+	}
+
+	private void verifyNumberOfVersesByChapterByBook(String[] bookNames, int[][] numVerses, String translationType) {
+		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
+			logger.info("expected {} verses by chapter by book for {} ({})", numVerses[bookIdx], bookNames[bookIdx],
+					translationType);
+			givenTranslationAndName(translationType, bookNames[bookIdx]);
 			whenQueryNumberOfVersesByChapter();
-			thenNumVersesByChapterShouldEqual(LatinVulgate.NUMBER_OF_VERSES_BY_CHAPTER_BY_BOOK[bookIdx]);
+			thenNumVersesByChapterShouldEqual(numVerses[bookIdx]);
 		}
 	}
 

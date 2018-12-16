@@ -2,7 +2,7 @@ package com.drkiettran.scriptureinaction.ccc;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class CollectCatechism {
 	@Steps
 	private CccSteps cccSteps;
 
-	@Test
+	@Ignore
 	public void load_ccc() {
 		List<String> pages = cccSteps.download_ccc_pages(CCC_URL);
 		StringBuilder sb = new StringBuilder("*** the catechism of the catholic church (ccc) ***\n\n");
