@@ -2,6 +2,7 @@ package com.drkiettran.scriptureinaction.model;
 
 import java.util.List;
 
+import com.drkiettran.scriptureinaction.model.constants.NewAmerican;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BibleBook {
@@ -86,6 +87,8 @@ public class BibleBook {
 
 	public void setName(String name) {
 		this.name = name;
+		this.type = NewAmerican.getType(name);
+		this.collectionName = NewAmerican.getCollectionType(name);
 	}
 
 	public String getTranslation() {
@@ -155,6 +158,10 @@ public class BibleBook {
 	public String logBookSummary() {
 		StringBuilder sb = new StringBuilder("*** Summary for the book of ").append(this.name);
 		sb.append(" (").append(translation).append(") ***\n");
+		sb.append("bookId: ").append(this.bookId).append('\n');
+		sb.append("additionalInformation: ").append(this.additionalInformation).append('\n');
+		sb.append("collectionName: ").append(this.collectionName).append('\n');
+		sb.append("type: ").append(this.type).append('\n');
 		sb.append(" has ").append(chapters.size()).append(" chapters:\n");
 		for (int chapterIdx = 0; chapterIdx < chapters.size(); chapterIdx++) {
 			sb.append(chapters.get(chapterIdx).logChapterSummary());

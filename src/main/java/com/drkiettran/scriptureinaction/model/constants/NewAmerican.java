@@ -1,9 +1,12 @@
 package com.drkiettran.scriptureinaction.model.constants;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.drkiettran.scriptureinaction.model.BibleBook;
 
 public interface NewAmerican {
 	public static final Logger logger = LoggerFactory.getLogger(NewAmerican.class);
@@ -264,13 +267,13 @@ public interface NewAmerican {
 			/** Esther **/
 			"Esth,  Est, Es",
 			/** 1 Maccabees **/
-			"1 Macc,  1Mc, 1Ma",
+			"1 Macc,  1Mc, 1Ma, 1 Mc, 1 Ma",
 			/** 2 Maccabees **/
-			"2 Macc,  2Mc, 2Ma",
+			"2 Macc,  2Mc, 2Ma, 2 Mc, 2 Ma",
 			/** Job **/
 			"Job,  Jb",
 			/** Psalms **/
-			"Ps (pl. Pss)",
+			"Ps, Pss",
 			/** Proverbs **/
 			"Prov,  Prv, Pr",
 			/** Ecclesiastes **/
@@ -726,6 +729,7 @@ public interface NewAmerican {
 	 */
 	public static String getBookNameByShortName(String shortName) {
 		logger.info("get name for '{}'", shortName);
+
 		if (shortNameMap.size() == 0) {
 			for (int nameIdx = 0; nameIdx < ABBREVIATIONS_OF_ALL_BOOKS.length; nameIdx++) {
 				String[] abbrevNames = ABBREVIATIONS_OF_ALL_BOOKS[nameIdx].split(", ");
@@ -734,8 +738,60 @@ public interface NewAmerican {
 				}
 			}
 		}
-		logger.info("'{}' get {}", shortName, shortNameMap.get(shortName));
-		return NAMES_OF_ALL_BOOKS[shortNameMap.get(shortName)];
+
+		Integer bookIdx = shortNameMap.get(shortName);
+
+		if (bookIdx == null) {
+			bookIdx = shortNameMap.get(shortName.replace(" ", ""));
+			if (bookIdx == null) {
+				logger.info("'{}' get *** NOT FOUND ***", shortName);
+				return "";
+			}
+		}
+
+		logger.info("'{}' get {}", shortName, NAMES_OF_ALL_BOOKS[bookIdx]);
+
+		return NAMES_OF_ALL_BOOKS[bookIdx];
+	}
+
+	public static String getType(String name) {
+		if (Arrays.asList(NewAmerican.NAMES_OF_NT_BOOKS).contains(name)) {
+			return BibleBook.NT;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_OT_BOOKS).contains(name)) {
+			return BibleBook.OT;
+		}
+		return "*** UNKNOWN ***";
+	}
+
+	public static String getCollectionType(String name) {
+		if (Arrays.asList(NewAmerican.NAMES_OF_PENTATEUCH_BOOKS).contains(name)) {
+			return BibleBook.PENTATEUCH;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_HISTORICAL_BOOKS).contains(name)) {
+			return BibleBook.HISTORICAL;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_BIBLICAL_NOVELLAS_BOOKS).contains(name)) {
+			return BibleBook.NOVELLAS;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_WISDOM_BOOKS).contains(name)) {
+			return BibleBook.WISDOM;
+		} else if (Arrays.asList(NewAmerican.NUMBER_OF_PROPHETIC_BOOKS).contains(name)) {
+			return BibleBook.PROPHETIC;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_GOSPEL_BOOKS).contains(name)) {
+			return BibleBook.GOSPELS;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_LETTER_BOOKS).contains(name)) {
+			return BibleBook.LETTERS;
+		} else if (Arrays.asList(NewAmerican.NAMES_OF_CATHOLIC_LETTER_BOOKS).contains(name)) {
+			return BibleBook.CATHOLIC_LETTERS;
+		}
+		return "*** UNKNOWN ***";
+	}
+
+	public static String getShortNameByBookName(String bookName) {
+		logger.info("get short name for '{}'", bookName);
+		for (int nameIdx = 0; nameIdx < NAMES_OF_ALL_BOOKS.length; nameIdx++) {
+			if (bookName.equalsIgnoreCase(NAMES_OF_ALL_BOOKS[nameIdx])) {
+				return ABBREVIATIONS_OF_ALL_BOOKS[nameIdx].split(",")[0].trim();
+			}
+		}
+		return "*** NOT FOUND ***";
 	}
 
 }

@@ -30,14 +30,14 @@ public class Verse {
 	@JsonProperty("text")
 	private String text;
 
-	@JsonProperty("related_verse_ids")
-	private List<String> relatedVerseIds;
-
-	@JsonProperty("commentary_ids")
-	private List<String> commentaryIds;
-
 	@JsonProperty("additional_leading_text")
 	private String additionalLeadingText;
+	
+	@JsonProperty("link")
+	private Link link;
+	
+	@JsonProperty("commentary")
+	private Commentary commentary;
 
 	public String getVerseId() {
 		return verseId;
@@ -95,28 +95,20 @@ public class Verse {
 		parse(text);
 	}
 
-	public List<String> getRelatedVerseIds() {
-		return relatedVerseIds;
-	}
-
-	public void setRelatedVerseIds(List<String> relatedVerseIds) {
-		this.relatedVerseIds = relatedVerseIds;
-	}
-
-	public List<String> getCommentaryIds() {
-		return commentaryIds;
-	}
-
-	public void setCommentaryIds(List<String> commentaryIds) {
-		this.commentaryIds = commentaryIds;
-	}
-
 	public String getAdditionalLeadingText() {
 		return additionalLeadingText;
 	}
 
 	public void setAdditionalLeadingText(String additionalLeadingText) {
 		this.additionalLeadingText = additionalLeadingText;
+	}
+
+	public Link getLink() {
+		return link;
+	}
+
+	public void setLink(Link link) {
+		this.link = link;
 	}
 
 	public String logVerseSummary() {

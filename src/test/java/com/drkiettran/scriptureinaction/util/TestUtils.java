@@ -1,4 +1,4 @@
-package com.drkiettran.scriptureinaction.catalog.util;
+package com.drkiettran.scriptureinaction.util;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

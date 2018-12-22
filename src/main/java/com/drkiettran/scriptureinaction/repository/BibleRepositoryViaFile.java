@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.drkiettran.scriptureinaction.model.BibleBook;
 import com.drkiettran.scriptureinaction.model.Chapter;
+import com.drkiettran.scriptureinaction.model.Link;
 import com.drkiettran.scriptureinaction.model.Verse;
 import com.drkiettran.scriptureinaction.model.constants.NewAmerican;
 import com.drkiettran.scriptureinaction.util.CommonUtils;
@@ -27,6 +28,9 @@ public class BibleRepositoryViaFile implements BibleRepository {
 		String key = makeKey(translation, bookName);
 		if (booksHash.get(key) == null) {
 			BibleBook book = loadFromFile(translation, bookName);
+			if (translation.equals(BibleBook.NAB)) {
+				loadLinksFromFile(book, translation, bookName);
+			}
 			booksHash.put(key, book);
 //			logger.info("Book summary: \n{}", book.logBookSummary());
 		}
@@ -34,9 +38,54 @@ public class BibleRepositoryViaFile implements BibleRepository {
 		return booksHash.get(key);
 	}
 
+	private void loadLinksFromFile(BibleBook book, String translation, String bookName) {
+		logger.info("load book {} ({}) from file", bookName, translation);
+		Path path = Paths.get(getFolder(translation), CommonUtils.getLinkFileName(translation, bookName));
+		List<String> lines = CommonUtils.loadLinksFromFile(path);
+		List<Link> links = null;
+		Chapter chapter = null;
+
+		for (int lineIdx = 0; lineIdx < lines.size(); lineIdx++) {
+			logger.info("*** line: \n{}", lines.get(lineIdx));
+			if (lines.get(lineIdx).isEmpty()) {
+				continue;
+			}
+
+			if (lineIsLink(lines.get(lineIdx))) {
+				Link link = new Link();
+				link.setBookName(bookName);
+				link.parse(lines.get(lineIdx));
+				link.setLinkId(CommonUtils.getUniqeId());
+				link.setBookId(book.getBookId());
+				link.setBookName(bookName);
+
+				links.add(link);
+			}
+
+			if (lineIsChapterHeading(lines.get(lineIdx), bookName)) {
+				int chapterNumber = getChapterNumber(lines.get(lineIdx));
+				chapter = book.getChapters().get(chapterNumber - 1);
+
+				if (chapter.getChapterNumber() != chapterNumber) {
+					logger.error("*** ERROR *** {} verses {}", chapter.getChapterNumber(), chapterNumber);
+				}
+				chapter.setBookId(book.getBookId());
+				chapter.setChapterId(CommonUtils.getUniqeId());
+				chapter.setChapterNumber(getChapterNumber(lines.get(lineIdx)));
+				links = new ArrayList<Link>();
+				chapter.setLinks(links);
+				continue;
+			}
+		}
+	}
+
+	private boolean lineIsLink(String line) {
+		return Character.isAlphabetic(line.charAt(0)) && line.charAt(1) == '.';
+	}
+
 	private BibleBook loadFromFile(String translation, String bookName) {
 		logger.info("load book {} ({}) from file", bookName, translation);
-		Path path = Paths.get(getFolder(translation), getFileName(translation, bookName));
+		Path path = Paths.get(getFolder(translation), CommonUtils.getFileName(translation, bookName));
 		List<String> lines = CommonUtils.loadFromFile(path);
 
 		BibleBook book = new BibleBook();
@@ -105,24 +154,6 @@ public class BibleRepositoryViaFile implements BibleRepository {
 
 	private boolean lineIsChapterHeading(String line, String bookName) {
 		return (line.startsWith("*** chapter") || line.startsWith(String.format("*** %s", bookName)));
-	}
-
-	private String getFileName(String translation, String bookName) {
-		int bookNo = getBookNoByBookName(translation, bookName);
-		return String.format("%02d-%s-text.txt", bookNo, bookName);
-	}
-
-	private int getBookNoByBookName(String translation, String bookName) {
-		logger.info("searching for bookIdx for {}", bookName);
-		String[] bookNames = NewAmerican.NAMES_OF_ALL_BOOKS;
-		for (int bookIdx = 0; bookIdx < bookNames.length; bookIdx++) {
-			if (bookName.equalsIgnoreCase(bookNames[bookIdx])) {
-				logger.info("found bookIdx {}", bookIdx);
-				return bookIdx + 1;
-			}
-		}
-		logger.info("*** bookIdx not found for {}", bookName);
-		return 0;
 	}
 
 	private String getFolder(String translation) {

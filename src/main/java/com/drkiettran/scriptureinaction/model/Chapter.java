@@ -121,6 +121,11 @@ public class Chapter {
 		for (int verseIdx = 0; verseIdx < verses.size(); verseIdx++) {
 			sb.append(verses.get(verseIdx).logVerseSummary());
 		}
+		sb.append(" has ").append(this.links.size()).append(" links:\n");
+		for (int linkIdx = 0; linkIdx < links.size(); linkIdx++) {
+			sb.append(links.get(linkIdx).logLinkSummary());
+		}
+		
 		return sb.toString();
 	}
 

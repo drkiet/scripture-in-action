@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Mk 10:7
  * 1 Cor 7:10–11
  * Eph 5:31.
+ * Sir 17:1, 3–4
  * 
  * 
  * </code>
@@ -47,9 +48,6 @@ public class VersePointer {
 
 	@JsonProperty("ending_verse_number")
 	private int endingVerseNumber;
-
-	@JsonProperty("verses")
-	private List<Integer> verses;
 
 	public String getText() {
 		return text;
@@ -99,15 +97,8 @@ public class VersePointer {
 		this.endingVerseNumber = endingVerseNumber;
 	}
 
-	public List<Integer> getVerses() {
-		return verses;
-	}
-
-	public void setVerses(List<Integer> verses) {
-		this.verses = verses;
-	}
-
 	public void parse(String text) {
+		logger.info("text: {}", text);
 		this.text = text;
 		StringTokenizer st = new StringTokenizer(text, " -–:.");
 
@@ -129,16 +120,20 @@ public class VersePointer {
 		shortName += tokens.get(index++);
 		bookName = NewAmerican.getBookNameByShortName(shortName);
 
-		chapterNumber = Integer.valueOf(tokens.get(index++)).intValue();
-
-		if (tokens.get(index).contains(",")) {
-			st = new StringTokenizer(tokens.get(index), ",");
-			verses = new ArrayList<Integer>();
-			while (st.hasMoreElements()) {
-				verses.add(Integer.valueOf(CommonUtils.cleansingNumberOnly(st.nextToken())));
-			}
+		// the book of Esther from USCCB / NAB translation arrange a bit differently
+		// with Chapter A - F.
+		if ("est".equalsIgnoreCase(shortName) && Character.isAlphabetic(tokens.get(index).charAt(0))) {
+			chapterNumber = (int) (tokens.get(index++).charAt(0) - 'A') + 100;
 		} else {
-			verses = null;
+			chapterNumber = Integer.valueOf(tokens.get(index++)).intValue();
+		}
+
+		/**
+		 * Sometimes, verse pointer does not include verses but only chapter number. If
+		 * this is the case, we stop here.
+		 * 
+		 */
+		if (index < tokens.size()) {
 			startingVerseNumber = Integer.valueOf(CommonUtils.cleansingNumberOnly(tokens.get(index++)));
 
 			if (index < tokens.size()) {
@@ -156,6 +151,10 @@ public class VersePointer {
 			sb.append('-').append(endingVerseNumber);
 		}
 		return sb.toString();
+	}
+
+	public Object logVersePointerSummary() {
+		return toString();
 	}
 
 }
