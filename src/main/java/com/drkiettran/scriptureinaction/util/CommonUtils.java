@@ -113,4 +113,13 @@ public class CommonUtils {
 		return "";
 	}
 
+	public static String getCommentFileName(String translation, String bookName) {
+		int bookNo = getBookNoByBookName(translation, bookName);
+		return String.format("%02d-%s-comment.txt", bookNo, bookName);
+	}
+
+	public static List<String> loadCommentsFromFile(Path path) {
+		return loadLinksFromFile(path);
+	}
+
 }

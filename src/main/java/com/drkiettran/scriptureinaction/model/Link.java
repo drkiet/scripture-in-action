@@ -132,7 +132,7 @@ public class Link {
 		return linkPointers;
 	}
 
-	public void setLinkPointer(List<VersePointer> linkPointers) {
+	public void setLinkPointers(List<VersePointer> linkPointers) {
 		this.linkPointers = linkPointers;
 	}
 
@@ -245,7 +245,7 @@ public class Link {
 	}
 
 	public String logLinkSummary() {
-		StringBuilder sb = new StringBuilder("   link ");
+		StringBuilder sb = new StringBuilder("   Reference: ");
 		for (VersePointer linkPointer : linkPointers) {
 			sb.append(linkPointer.logVersePointerSummary());
 		}

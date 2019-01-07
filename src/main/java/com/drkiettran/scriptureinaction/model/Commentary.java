@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.drkiettran.scriptureinaction.util.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -178,20 +177,24 @@ public class Commentary {
 
 	public void parse(String text) {
 		this.text = text;
-		int index = text.indexOf(' ', 2);
+		int index = text.indexOf(']', 2);
 
 		if (index < 0) {
 			return;
 		}
 
-		commentaryRef = text.substring(2, index);
+		commentaryRef = text.substring(2, index + 1);
 		logger.info("commentaryRef: {}", commentaryRef);
 
-		StringTokenizer st = new StringTokenizer(commentaryRef, "[:–-]");
+		StringTokenizer st = new StringTokenizer(commentaryRef, "[:–-â,]");
 		List<Integer> refNumbers = new ArrayList<Integer>();
 
 		while (st.hasMoreElements()) {
-			refNumbers.add(Integer.valueOf(st.nextToken()));
+			String expectedChapterNo = cleanNumber(st.nextToken());
+			if (expectedChapterNo.isEmpty()) {
+				expectedChapterNo = st.nextToken();
+			}
+			refNumbers.add(Integer.valueOf(expectedChapterNo));
 		}
 
 		switch (refNumbers.size()) {
@@ -214,6 +217,16 @@ public class Commentary {
 			break;
 		}
 
+	}
+
+	private String cleanNumber(String token) {
+		StringBuilder sb = new StringBuilder();
+		for (int idx = 0; idx < token.length(); idx++) {
+			if (Character.isDigit(token.charAt(idx))) {
+				sb.append(token.charAt(idx));
+			}
+		}
+		return sb.toString();
 	}
 
 }

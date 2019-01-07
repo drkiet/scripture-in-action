@@ -111,8 +111,22 @@ public class Chapter {
 		return comments;
 	}
 
+	public String getText() {
+		StringBuilder text = new StringBuilder();
+
+		for (Verse verse : verses) {
+			text.append(verse.getText()).append("\n");
+		}
+		
+		return text.toString();
+	}
+
 	public void setComments(List<Commentary> comments) {
 		this.comments = comments;
+	}
+
+	public String getVerseText(int verseNo) {
+		return getVerses().get(verseNo - 1).getText();
 	}
 
 	public String logChapterSummary() {
@@ -125,7 +139,7 @@ public class Chapter {
 		for (int linkIdx = 0; linkIdx < links.size(); linkIdx++) {
 			sb.append(links.get(linkIdx).logLinkSummary());
 		}
-		
+
 		return sb.toString();
 	}
 

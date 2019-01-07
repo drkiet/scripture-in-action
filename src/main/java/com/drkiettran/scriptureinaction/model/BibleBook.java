@@ -155,6 +155,14 @@ public class BibleBook {
 		this.chapterIds = chapterIds;
 	}
 
+	public String getVerseText(int chapterNo, int verseNo) {
+		return getChapters().get(chapterNo - 1).getVerseText(verseNo);
+	}
+	
+	public String getChapterText(int chapterNo) {
+		return getChapters().get(chapterNo - 1).getText();
+	}
+	
 	public String logBookSummary() {
 		StringBuilder sb = new StringBuilder("*** Summary for the book of ").append(this.name);
 		sb.append(" (").append(translation).append(") ***\n");

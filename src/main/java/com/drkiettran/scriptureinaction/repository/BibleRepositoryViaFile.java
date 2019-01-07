@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 
 import com.drkiettran.scriptureinaction.model.BibleBook;
 import com.drkiettran.scriptureinaction.model.Chapter;
+import com.drkiettran.scriptureinaction.model.Commentary;
 import com.drkiettran.scriptureinaction.model.Link;
 import com.drkiettran.scriptureinaction.model.Verse;
-import com.drkiettran.scriptureinaction.model.constants.NewAmerican;
 import com.drkiettran.scriptureinaction.util.CommonUtils;
 
 @Component
 public class BibleRepositoryViaFile implements BibleRepository {
 	private static final Logger logger = LoggerFactory.getLogger(BibleRepository.class);
 
-	private Hashtable<String, BibleBook> booksHash = new Hashtable<String, BibleBook>();
+	private static Hashtable<String, BibleBook> booksHash = new Hashtable<String, BibleBook>();
 
 	@Override
 	public BibleBook load(String translation, String bookName) {
@@ -30,12 +30,58 @@ public class BibleRepositoryViaFile implements BibleRepository {
 			BibleBook book = loadFromFile(translation, bookName);
 			if (translation.equals(BibleBook.NAB)) {
 				loadLinksFromFile(book, translation, bookName);
+				loadCommentsFromFile(book, translation, bookName);
 			}
 			booksHash.put(key, book);
 //			logger.info("Book summary: \n{}", book.logBookSummary());
 		}
 
 		return booksHash.get(key);
+	}
+
+	private void loadCommentsFromFile(BibleBook book, String translation, String bookName) {
+		logger.info("load book {} ({}) from file", bookName, translation);
+		Path path = Paths.get(getFolder(translation), CommonUtils.getCommentFileName(translation, bookName));
+		List<String> lines = CommonUtils.loadCommentsFromFile(path);
+		List<Commentary> comments = null;
+		Chapter chapter = null;
+
+		for (int lineIdx = 0; lineIdx < lines.size(); lineIdx++) {
+			logger.info("*** line: \n{}", lines.get(lineIdx));
+			if (lines.get(lineIdx).isEmpty()) {
+				continue;
+			}
+
+			if (lineIsComment(lines.get(lineIdx))) {
+				Commentary comment = new Commentary();
+				comment.setBookName(bookName);
+				comment.parse(lines.get(lineIdx));
+				comment.setCommentaryId(CommonUtils.getUniqeId());
+				comment.setBookId(book.getBookId());
+				comment.setBookName(bookName);
+
+				comments.add(comment);
+			}
+
+			if (lineIsChapterHeading(lines.get(lineIdx), bookName)) {
+				int chapterNumber = getChapterNumber(lines.get(lineIdx));
+				chapter = book.getChapters().get(chapterNumber - 1);
+
+				if (chapter.getChapterNumber() != chapterNumber) {
+					logger.error("*** ERROR *** {} verses {}", chapter.getChapterNumber(), chapterNumber);
+				}
+				chapter.setBookId(book.getBookId());
+				chapter.setChapterId(CommonUtils.getUniqeId());
+				chapter.setChapterNumber(getChapterNumber(lines.get(lineIdx)));
+				comments = new ArrayList<Commentary>();
+				chapter.setComments(comments);
+				continue;
+			}
+		}
+	}
+
+	private boolean lineIsComment(String line) {
+		return line.startsWith("* [");
 	}
 
 	private void loadLinksFromFile(BibleBook book, String translation, String bookName) {
