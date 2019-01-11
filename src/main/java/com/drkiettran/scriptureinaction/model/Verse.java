@@ -1,11 +1,5 @@
 package com.drkiettran.scriptureinaction.model;
 
-import java.util.List;
-import java.util.StringTokenizer;
-
-import org.h2.util.StringUtils;
-
-import com.drkiettran.scriptureinaction.util.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Verse {
@@ -32,10 +26,10 @@ public class Verse {
 
 	@JsonProperty("additional_leading_text")
 	private String additionalLeadingText;
-	
+
 	@JsonProperty("link")
 	private Link link;
-	
+
 	@JsonProperty("commentary")
 	private Commentary commentary;
 
@@ -128,9 +122,19 @@ public class Verse {
 
 		String number = text.substring(0, index);
 
-		if (StringUtils.isNumber(number)) {
+		if (isNumber(number)) {
 			verseNumber = Integer.valueOf(number);
 		}
+	}
+
+	private boolean isNumber(String number) {
+		for (int idx = 0; idx < number.length(); idx++) {
+			if (!Character.isDigit(number.charAt(idx))) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.drkiettran.scriptureinaction.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -99,7 +100,9 @@ public class VersePointer {
 
 	public void parse(String text) {
 		logger.info("text: {}", text);
-		this.text = text;
+		// special case: Jude, 2 Jn, 3 Jn, Phil -- These books only have 1 chapter each.
+
+		this.text = text = specialBooks(text);
 		StringTokenizer st = new StringTokenizer(text, " -–:.");
 
 		List<String> tokens = new ArrayList<String>();
@@ -142,6 +145,29 @@ public class VersePointer {
 				endingVerseNumber = startingVerseNumber;
 			}
 		}
+	}
+
+	public static final String[] SINGLE_CHAPTER_BOOKS = { "Jude ", "2 Jn ", "3 Jn ", "Phil " };
+	public static final List<String> SINGLE_CHAPTER_BOOK_LIST = Arrays.asList(SINGLE_CHAPTER_BOOKS);
+
+	private String specialBooks(String text) {
+		// special case: Jude, 2 Jn, 3 Jn, Phil -- These books only have 1 chapter each.
+		boolean found = false;
+		int foundIdx = -1;
+
+		for (int idx = 0; idx < SINGLE_CHAPTER_BOOKS.length; idx++) {
+			if (text.startsWith(SINGLE_CHAPTER_BOOKS[idx]) && text.indexOf(":") < 0) {
+				found = true;
+				foundIdx = idx;
+				break;
+			}
+		}
+
+		if (!found) {
+			return text;
+		}
+
+		return text.replaceAll(SINGLE_CHAPTER_BOOKS[foundIdx], SINGLE_CHAPTER_BOOKS[foundIdx] + "1:");
 	}
 
 	public String toString() {

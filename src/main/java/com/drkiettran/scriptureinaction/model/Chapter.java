@@ -117,7 +117,7 @@ public class Chapter {
 		for (Verse verse : verses) {
 			text.append(verse.getText()).append("\n");
 		}
-		
+
 		return text.toString();
 	}
 
@@ -126,7 +126,10 @@ public class Chapter {
 	}
 
 	public String getVerseText(int verseNo) {
-		return getVerses().get(verseNo - 1).getText();
+		if (verseNo <= verses.size()) {
+			return verses.get(verseNo - 1).getText();
+		}
+		return verses.get(verses.size() - 1).getText();
 	}
 
 	public String logChapterSummary() {
